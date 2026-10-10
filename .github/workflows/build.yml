@@ -23,14 +23,11 @@ jobs:
           pip install buildozer cython==0.29.34 virtualenv
 
       - name: Build with Buildozer
-        uses: ArtemSBulgakov/buildozer-action@v1.1.
-        id: buildozer
-        with:
-          workdir: .
-          buildozer_version: stable
+        run: |
+          yes | buildozer -v android debug
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
-      with:
-          command: yes | buildozer -v android debug
-          buildozer_version: stable
+        with:
+          name: package
+          path: bin/*.apk
